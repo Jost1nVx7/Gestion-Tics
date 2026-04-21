@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Tics</title>
+</head>
+
+<body class="Todo">
+
+    <fieldset class="contenedor1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFXnGmqTwS4Pq9MeIiViaSOs8ppg7oWq5xPQ&s"
+            width="10%">
+        <h2>Mis Tareas</h2>
+        <p>Organiza tu dia</p>
+
+        <fieldset>
+            <i class="fa-solid fa-list"> </i>Todas las tareas
+        </fieldset>
+        <p>pendientes</p>
+        <p>Completadas</p>
+        <p>Calendario</p>
+        <p>Estadisticas</p>
+        <p>Ajustes</p>
+        <p>-----------------</p>
+        <p> ❝ </p>
+        <p>La disciplina es el puente entre las metas y los logros</p>
+    </fieldset>
+        <h3>Mis Tareas del Dia</h3>
+        <p>Agrega, Organiza y completa tus tareas diarias</p>
+   <fieldset>
+            <div class="aggNvT">
+                <h4>Agregar nueva tarea</h4>
+                    <p>Tarea</p>
+                    <input id="inputTarea" type="text" placeholder="¿Qué necesitas hacer?">
+                    <p>Prioridad</p>
+                    <select id="inputPrioridad">
+                        <option>Alta</option>
+                        <option selected>Media</option>
+                        <option>Baja</option>
+                    </select>
+                    <p>Fecha</p>
+                    <input id="inputfecha" type="date">
+                    <p></p>
+                    <button id="BtnTarea">+ Agregar Tarea</button>
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="FltrTarea">
+                <h4>Filtrar Tareas</h4>
+                <button id="BtnTodas"> <i class="fa-solid fa-list"> </i>Todas </button>
+                <button id="BtnPendientes"> <i class="fa-regular fa-clock"></i> Pendientes</button>
+                <button id="BtnCompletas"> <i class="fa-solid fa-clipboard-check"></i> Completadas</button>
+                <div class="contador"> <p>Total</p> <strong id="total">0</strong></div>
+                <div class="contador"> <p>Pendientes</p> <strong id="pendientes">0</strong> </div>
+                <div class="contador"> <p>Completas</p> <strong id="completadas">0</strong></div>
+            </div>
+        </fieldset>
+        <fieldset>
+    <div class="LstTareas">
+        <h4>Listar Tareas</h4>
+        <ul id="listaTareas">
+            <!-- JavaScript insertará los <li> aquí -->
+        </ul>
+    </div>
+</fieldset>
+<p> © 2024 Mis Tareas del Día |  Hecho sin ChatGPT por Estudiantes de PAO5</p>
+
+</body>
+
+</html>
