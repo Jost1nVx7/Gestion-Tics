@@ -1,15 +1,14 @@
 let tareas = [];
 
-function guardarEnLocalStorage() {
+function guardarDatos() {
     localStorage.setItem('tareasTIC', JSON.stringify(tareas));
 }
 
-function cargarDatosIniciales() {
+function cargarDatos() {
     const data = localStorage.getItem('tareasTIC');
     if (data) {
         tareas = JSON.parse(data);
     } else {
-        // Tareas con temática TICs
         tareas = [
             { id: 1, nombre: "Analizar Funcionamiento de Redes", prioridad: "Media", fecha: "2024-05-24", completada: true },
             { id: 2, nombre: "Diseñar la interfaz de la app", prioridad: "Alta", fecha: "2024-05-24", completada: true },
@@ -17,223 +16,216 @@ function cargarDatosIniciales() {
             { id: 4, nombre: "Enviar Reportes de Seguridad", prioridad: "Baja", fecha: "2024-05-25", completada: true },
             { id: 5, nombre: "Comprar insumos TI", prioridad: "Media", fecha: "2024-05-23", completada: true }
         ];
-        guardarEnLocalStorage();
+        guardarDatos();
     }
 }
 
-let filtroActivo = "all";
+let filtro = "todas";
 
-// auxiliares
 function formatearFecha(iso) {
     if (!iso) return "dd/mm/aaaa";
-    const [y, m, d] = iso.split("-");
-    return `${d}/${m}/${y}`;
+    let partes = iso.split("-");
+    return partes[2] + "/" + partes[1] + "/" + partes[0];
 }
 
-function obtenerFechaActualISO() {
-    const hoy = new Date();
-    return hoy.toISOString().split("T")[0];
+function fechaActual() {
+    let hoy = new Date();
+    let año = hoy.getFullYear();
+    let mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    let dia = String(hoy.getDate()).padStart(2, '0');
+    return año + "-" + mes + "-" + dia;
 }
 
-// actualiza contadores
 function actualizarContadores() {
-    const total = tareas.length;
-    const pendientes = tareas.filter(t => !t.completada).length;
-    const completadas = tareas.filter(t => t.completada).length;
-    document.getElementById("totalCount").innerText = total;
-    document.getElementById("pendingCount").innerText = pendientes;
-    document.getElementById("completedCount").innerText = completadas;
+    let total = tareas.length;
+    let pendientes = 0;
+    let completadas = 0;
+    
+    for (let i = 0; i < tareas.length; i++) {
+        if (tareas[i].completada) {
+            completadas++;
+        } else {
+            pendientes++;
+        }
+    }
+    
+    document.getElementById("total").innerText = total;
+    document.getElementById("pendientes").innerText = pendientes;
+    document.getElementById("completadas").innerText = completadas;
 }
 
-// realizar lista con DOM
-function renderizarTareas() {
-    const contenedor = document.getElementById("tasksList");
-    let tareasFiltradas = [...tareas];
-
-    if (filtroActivo === "pending") tareasFiltradas = tareas.filter(t => !t.completada);
-    if (filtroActivo === "completed") tareasFiltradas = tareas.filter(t => t.completada);
-
-    if (tareasFiltradas.length === 0) {
-        contenedor.innerHTML = '<div class="empty-message">✨ No hay tareas para mostrar</div>';
+function mostrarTareas() {
+    let lista = document.getElementById("listaTareas");
+    let tareasMostrar = [];
+    
+    if (filtro === "pendientes") {
+        for (let i = 0; i < tareas.length; i++) {
+            if (!tareas[i].completada) tareasMostrar.push(tareas[i]);
+        }
+    } else if (filtro === "completadas") {
+        for (let i = 0; i < tareas.length; i++) {
+            if (tareas[i].completada) tareasMostrar.push(tareas[i]);
+        }
+    } else {
+        tareasMostrar = tareas;
+    }
+    
+    if (tareasMostrar.length === 0) {
+        lista.innerHTML = "<li>No hay tareas</li>";
         actualizarContadores();
         return;
     }
-
+    
     let html = "";
-    for (let t of tareasFiltradas) {
-        const claseCompletada = t.completada ? "task-completed" : "";
-        const iconoCheck = t.completada ? " ok " : "◻️";
-        const fechaVista = formatearFecha(t.fecha);
-        const prioridadClass = `priority-${t.prioridad.toLowerCase()}`;
-
-        html += `
-            <div class="task-item ${claseCompletada}" data-id="${t.id}">
-                <div class="task-info">
-                    <span class="task-name">${escapeHTML(t.nombre)}</span>
-                    <span class="task-priority ${prioridadClass}">${t.prioridad}</span>
-                    <span class="task-date">${fechaVista}</span>
-                </div>
-                <div class="task-actions">
-                    <button class="toggle-btn" data-id="${t.id}">${iconoCheck}</button>
-                    <button class="delete-btn" data-id="${t.id}"> </button>
-                </div>
-            </div>
-        `;
+    for (let i = 0; i < tareasMostrar.length; i++) {
+        let t = tareasMostrar[i];
+        let textoCompleta = t.completada ? "line-through" : "none";
+        let icono = t.completada ? "[X]" : "[ ]";
+        let colorPrioridad = "";
+        
+        if (t.prioridad === "Alta") colorPrioridad = "#ff4444";
+        else if (t.prioridad === "Media") colorPrioridad = "#ffaa00";
+        else colorPrioridad = "#44aa00";
+        
+        html += "<li style='margin: 10px 0; padding: 10px; border: 1px solid #ddd; list-style: none;'>";
+        html += "<div style='display: flex; justify-content: space-between; align-items: center;'>";
+        html += "<div style='flex: 1;'>";
+        html += "<span style='text-decoration: " + textoCompleta + ";'>" + t.nombre + "</span>";
+        html += "<span style='margin-left: 10px; background: " + colorPrioridad + "; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;'>" + t.prioridad + "</span>";
+        html += "<span style='margin-left: 10px; font-size: 12px; color: #666;'>" + formatearFecha(t.fecha) + "</span>";
+        html += "</div>";
+        html += "<div>";
+        html += "<button onclick='toggleTarea(" + t.id + ")' style='margin: 0 5px; cursor: pointer;'>" + icono + "</button>";
+        html += "<button onclick='eliminarTarea(" + t.id + ")' style='margin: 0 5px; cursor: pointer;'>[X]</button>";
+        html += "</div>";
+        html += "</div>";
+        html += "</li>";
     }
-    contenedor.innerHTML = html;
+    
+    lista.innerHTML = html;
     actualizarContadores();
-
-    // Eventos a botones dinámicos
-    document.querySelectorAll(".toggle-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const id = parseInt(btn.getAttribute("data-id"));
-            toggleCompletar(id);
-        });
-    });
-    document.querySelectorAll(".delete-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const id = parseInt(btn.getAttribute("data-id"));
-            eliminarTarea(id);
-        });
-    });
 }
 
-function escapeHTML(str) {
-    return str.replace(/[&<>]/g, function (m) {
-        if (m === "&") return "&amp;";
-        if (m === "<") return "&lt;";
-        if (m === ">") return "&gt;";
-        return m;
-    });
-}
-
-// crud
 function agregarTarea() {
-    const nombreInput = document.getElementById("taskNameInput");
-    const prioridadSelect = document.getElementById("taskPrioritySelect");
-    const fechaInput = document.getElementById("taskDateInput");
-
-    let nombre = nombreInput.value.trim();
+    let nombre = document.getElementById("inputTarea").value.trim();
+    let prioridad = document.getElementById("inputPrioridad").value;
+    let fecha = document.getElementById("inputfecha").value;
+    
     if (nombre === "") {
-        alert("Escribe una tarea válida");
+        alert("Escribe una tarea");
         return;
     }
-    if (nombre.length > 55) nombre = nombre.slice(0, 52) + "...";
-
-    const prioridad = prioridadSelect.value;
-    let fecha = fechaInput.value;
-    if (fecha === "") fecha = obtenerFechaActualISO();
-
-    const nuevoId = tareas.length ? Math.max(...tareas.map(t => t.id)) + 1 : 1;
-    const nuevaTarea = {
+    
+    if (fecha === "") fecha = fechaActual();
+    
+    let nuevoId = 1;
+    for (let i = 0; i < tareas.length; i++) {
+        if (tareas[i].id >= nuevoId) nuevoId = tareas[i].id + 1;
+    }
+    
+    tareas.push({
         id: nuevoId,
         nombre: nombre,
         prioridad: prioridad,
         fecha: fecha,
         completada: false
-    };
-    tareas.push(nuevaTarea);
-    guardarEnLocalStorage();
-
-    nombreInput.value = "";
-    fechaInput.value = "";
-    prioridadSelect.value = "Media";
-    renderizarTareas();
+    });
+    
+    guardarDatos();
+    document.getElementById("inputTarea").value = "";
+    document.getElementById("inputfecha").value = "";
+    mostrarTareas();
 }
 
-function toggleCompletar(id) {
-    const tarea = tareas.find(t => t.id === id);
-    if (tarea) {
-        tarea.completada = !tarea.completada;
-        guardarEnLocalStorage();
-        renderizarTareas();
+function toggleTarea(id) {
+    for (let i = 0; i < tareas.length; i++) {
+        if (tareas[i].id === id) {
+            tareas[i].completada = !tareas[i].completada;
+            break;
+        }
     }
+    guardarDatos();
+    mostrarTareas();
 }
 
 function eliminarTarea(id) {
-    if (confirm("¿Eliminar esta tarea permanentemente?")) {
-        tareas = tareas.filter(t => t.id !== id);
-        guardarEnLocalStorage();
-        renderizarTareas();
+    if (confirm("Eliminar tarea?")) {
+        let nuevasTareas = [];
+        for (let i = 0; i < tareas.length; i++) {
+            if (tareas[i].id !== id) nuevasTareas.push(tareas[i]);
+        }
+        tareas = nuevasTareas;
+        guardarDatos();
+        mostrarTareas();
     }
 }
 
-// filtro de navegacion
-function inicializarFiltros() {
-    const links = document.querySelectorAll(".categorias-nav a");
-    links.forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            const filtro = link.getAttribute("data-filter");
-
-            if (filtro === "calendar") {
-                alert("Vista Calendario: Próximamente en Gestión TICs");
-                return;
-            }
-            if (filtro === "stats") {
-                const pend = tareas.filter(t => !t.completada).length;
-                alert(`ESTADÍSTICAS TICs\n━━━━━━━━━━━━━━━━\n Total: ${tareas.length}\n Pendientes: ${pend}\n Completadas: ${tareas.length - pend}`);
-                return;
-            }
-            if (filtro === "settings") {
-                alert("AJUSTES TICs\n━━━━━━━━━━━━━━━━\n• Los datos se guardan automáticamente\n• Usa el botón 'Restaurar Demo' en el footer\n• Versión 1.0 - Gestión de Tareas");
-                return;
-            }
-
-            if (filtro === "all") filtroActivo = "all";
-            else if (filtro === "pending") filtroActivo = "pending";
-            else if (filtro === "completed") filtroActivo = "completed";
-
-            links.forEach(l => l.classList.remove("active-filter"));
-            link.classList.add("active-filter");
-            renderizarTareas();
-        });
-    });
-}
-
-function agregarBotonReset() {
-    const footer = document.querySelector(".app-footer");
-    if (footer && !document.getElementById("resetDataBtn")) {
-        const resetBtn = document.createElement("button");
-        resetBtn.id = "resetDataBtn";
-        resetBtn.textContent = "🔄 Restaurar Demo TICs";
-        resetBtn.style.cssText = "background:#eef2fa; border:1px solid #bdd4e7; border-radius:40px; padding:4px 12px; font-size:0.7rem; cursor:pointer; margin-left:12px;";
-        resetBtn.addEventListener("click", () => {
-            if (confirm("🔄 ¿Restaurar tareas de ejemplo con temática TICs?\nSe perderán los cambios actuales.")) {
-                tareas = [
-                    { id: 1, nombre: "Analizar Funcionamiento de Redes", prioridad: "Media", fecha: "2024-05-24", completada: true },
-                    { id: 2, nombre: "Diseñar la interfaz de la app", prioridad: "Alta", fecha: "2024-05-24", completada: true },
-                    { id: 3, nombre: "Actualizar Drivers", prioridad: "Baja", fecha: "2024-05-23", completada: true },
-                    { id: 4, nombre: "Enviar Reportes de Seguridad", prioridad: "Baja", fecha: "2024-05-25", completada: true },
-                    { id: 5, nombre: "Comprar insumos TI", prioridad: "Media", fecha: "2024-05-23", completada: true }
-                ];
-                guardarEnLocalStorage();
-                filtroActivo = "all";
-                const linkAll = document.querySelector('.categorias-nav a[data-filter="all"]');
-                if (linkAll) {
-                    document.querySelectorAll(".categorias-nav a").forEach(l => l.classList.remove("active-filter"));
-                    linkAll.classList.add("active-filter");
-                }
-                renderizarTareas();
-                alert("Tareas restauradas correctamente");
-            }
-        });
-        footer.appendChild(resetBtn);
-    }
-}
-
-// inicializacion
-document.addEventListener("DOMContentLoaded", () => {
-    cargarDatosIniciales();
-    const fechaInput = document.getElementById("taskDateInput");
-    if (fechaInput && !fechaInput.value) fechaInput.value = obtenerFechaActualISO();
-
-    document.getElementById("addTaskBtn").addEventListener("click", agregarTarea);
-    document.getElementById("taskNameInput").addEventListener("keypress", (e) => {
+function inicializar() {
+    cargarDatos();
+    
+    let fechaInput = document.getElementById("inputfecha");
+    if (fechaInput && fechaInput.value === "") fechaInput.value = fechaActual();
+    
+    document.getElementById("BtnTarea").onclick = agregarTarea;
+    
+    document.getElementById("BtnTodas").onclick = function() {
+        filtro = "todas";
+        mostrarTareas();
+    };
+    
+    document.getElementById("BtnPendientes").onclick = function() {
+        filtro = "pendientes";
+        mostrarTareas();
+    };
+    
+    document.getElementById("BtnCompletas").onclick = function() {
+        filtro = "completadas";
+        mostrarTareas();
+    };
+    
+    document.getElementById("inputTarea").onkeypress = function(e) {
         if (e.key === "Enter") agregarTarea();
-    });
+    };
+    
+    let menuItems = document.querySelectorAll('.contenedor1 p');
+    for (let i = 0; i < menuItems.length; i++) {
+        let texto = menuItems[i].innerText.toLowerCase();
+        menuItems[i].style.cursor = "pointer";
+        menuItems[i].onclick = function() {
+            if (texto.includes("pendientes")) {
+                filtro = "pendientes";
+                mostrarTareas();
+            } else if (texto.includes("completadas")) {
+                filtro = "completadas";
+                mostrarTareas();
+            } else if (texto.includes("todas")) {
+                filtro = "todas";
+                mostrarTareas();
+            } else if (texto.includes("calendario")) {
+                alert("Calendario - Proximamente");
+            } else if (texto.includes("estadisticas")) {
+                let pend = 0, comp = 0;
+                for (let j = 0; j < tareas.length; j++) {
+                    if (tareas[j].completada) comp++;
+                    else pend++;
+                }
+                alert("Total: " + tareas.length + "\nPendientes: " + pend + "\nCompletadas: " + comp);
+            } else if (texto.includes("ajustes")) {
+                alert("Ajustes - Datos guardados automaticamente");
+            }
+        };
+    }
+    
+    let todasFieldset = document.querySelector('.contenedor1 fieldset');
+    if (todasFieldset) {
+        todasFieldset.style.cursor = "pointer";
+        todasFieldset.onclick = function() {
+            filtro = "todas";
+            mostrarTareas();
+        };
+    }
+    
+    mostrarTareas();
+}
 
-    inicializarFiltros();
-    renderizarTareas();
-    agregarBotonReset();
-});
+document.addEventListener("DOMContentLoaded", inicializar);
