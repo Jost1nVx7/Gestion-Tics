@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 // elementos dom
 const taskInput = document.getElementById('inputTarea');
 const prioritySelect = document.getElementById('inputPrioridad');
 const dateInput = document.getElementById('inputfecha');
 const addButton = document.getElementById('BtnTarea');
 const taskList = document.getElementById('listaTareas');
+=======
+<<<<<<< HEAD
+=======
+let tareas = [];
+>>>>>>> ac5f8b9fa16c4818c7f9c944e437b3165b72d76f
 
 // contadores
 const totalCountSpan = document.getElementById('total');
@@ -389,5 +395,10 @@ function initApp() {
     updateCounters();
 }
 
+<<<<<<< HEAD
 // inicializa con el DOM
 document.addEventListener('DOMContentLoaded', initApp);
+=======
+// reincertacion de js
+>>>>>>> OswaldoBifariniDev
+>>>>>>> ac5f8b9fa16c4818c7f9c944e437b3165b72d76f

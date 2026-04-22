@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Tics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="Todo">
+    <fieldset class="contenedor1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFXnGmqTwS4Pq9MeIiViaSOs8ppg7oWq5xPQ&s"
+            alt="Logo">
+        <h2>Mis Tareas</h2>
+        <p>Organiza tu día</p>
+        <fieldset>
+            <i class="fa-solid fa-list"></i> Todas las tareas
+        </fieldset>
+        <p><i class="fa-regular fa-clock"></i> Pendientes</p>
+        <p><i class="fa-solid fa-circle-check"></i> Completadas</p>
+        <p><i class="fa-regular fa-calendar-days"></i> Calendario</p>
+        <p><i class="fa-solid fa-chart-line"></i> Estadísticas</p>
+        <p><i class="fa-solid fa-gears"></i> Ajustes</p>
+        <p>________________________</p>
+        <p>❝</p>
+        <p>La disciplina es el puente entre las metas y los logros</p>
+    </fieldset>
+
+    <div class="contenido">
+        <h3>Mis Tareas del Día</h3>
+        <p>Agrega, organiza y completa tus tareas diarias</p>
+        <fieldset>
+            <h4>Agregar nueva tarea</h4>
+
+            <div class="aggNvT">
+                <div class="campo">
+                    <label for="inputTarea">Tarea</label>
+                    <input id="inputTarea" type="text" placeholder="¿Qué necesitas hacer?">
+                </div>
+
+                <div class="campo">
+                    <label for="inputPrioridad">Prioridad</label>
+                    <select id="inputPrioridad">
+                        <option>Alta</option>
+                        <option selected>Media</option>
+                        <option>Baja</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="inputFecha">Fecha</label>
+                    <input id="inputFecha" type="date">
+                </div>
+
+                <button id="BtnTarea">+ Agregar Tarea</button>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="FltrTarea">
+                <div>
+                    <h4>Filtrar tareas</h4>
+                    <div class="filtros">
+                        <button id="BtnTodas"><i class="fa-solid fa-list"></i> Todas</button>
+                        <button id="BtnPendientes"><i class="fa-regular fa-clock"></i> Pendientes</button>
+                        <button id="BtnCompletas"><i class="fa-solid fa-circle-check"></i> Completadas</button>
+                    </div>
+                </div>
+
+                <div class="contadores">
+                    <div class="contador">
+                        <p>Total</p>
+                        <strong id="total">0</strong>
+                    </div>
+
+                    <div class="contador">
+                        <p>Pendientes</p>
+                        <strong id="pendientes">0</strong>
+                    </div>
+
+                    <div class="contador">
+                        <p>Completadas</p>
+                        <strong id="completadas">0</strong>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="LstTareas">
+                <h4>Lista de tareas</h4>
+                <ul id="listaTareas"></ul>
+            </div>
+        </fieldset>
+
+        <p>© 2024 Mis Tareas del Día | Hecho por Estudiante Web</p>
+    </div>
+    <script src="gestion.js"></script>
+</body>
+</html>

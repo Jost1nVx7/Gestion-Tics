@@ -1,0 +1,440 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.Todo {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+    display: flex;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+.contenedor1 {
+    width: 260px;
+    min-height: calc(100vh - 40px);
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    padding: 25px 18px;
+    text-align: center;
+}
+
+.contenedor1 img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #cfcfcf;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.contenedor1 h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.contenedor1 > p:first-of-type {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.contenedor1 fieldset {
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: left;
+    margin-bottom: 18px;
+    background-color: #fafafa;
+}
+
+.contenedor1 p {
+    text-align: left;
+    margin-bottom: 18px;
+    font-size: 15px;
+    color: #333;
+}
+
+.contenedor1 i {
+    width: 22px;
+    margin-right: 8px;
+}
+
+.contenedor1 p:nth-last-child(3) {
+    text-align: center;
+    color: #999;
+    letter-spacing: 2px;
+}
+
+.contenedor1 p:nth-last-child(2) {
+    text-align: center;
+    font-size: 28px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.contenedor1 p:last-child {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.contenido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.contenido h3 {
+    font-size: 38px;
+    margin-bottom: 5px;
+}
+
+.contenido > p:first-of-type {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.contenido > fieldset {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.contenido h4 {
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.aggNvT {
+    display: flex;
+    gap: 15px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo:first-child {
+    flex: 2;
+    min-width: 250px;
+}
+
+.campo:nth-child(2),
+.campo:nth-child(3) {
+    flex: 1;
+    min-width: 150px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+input,
+select,
+button {
+    height: 44px;
+    border: 1px solid #cfcfcf;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+input,
+select {
+    background-color: #fff;
+    width: 100%;
+}
+
+button {
+    background-color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+.FltrTarea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.filtros {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filtros button {
+    background-color: #fff;
+    min-width: 130px;
+}
+
+.contadores {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contador {
+    width: 95px;
+    height: 95px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background-color: #fafafa;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.contador p {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.contador strong {
+    font-size: 28px;
+    color: #111;
+}
+
+.LstTareas h4 {
+    margin-bottom: 15px;
+}
+
+#listaTareas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contenido > p:last-child {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    padding: 10px 0;
+}
+/*TABLET*/
+@media (min-width: 768px) and (max-width: 1023px) {
+    body.Todo {
+        margin: 0;
+        padding: 12px;
+        background: #f5f5f5;
+    }
+
+    .contenedor1 {
+        display: none;
+    }
+
+    .contenido {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+        gap: 14px;
+    }
+
+    .contenido h3 {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .contenido > p:first-of-type {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .contenido > fieldset {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .contenido h4 {
+        font-size: 20px;
+        margin-bottom: 14px;
+    }
+
+    /* FORMULARIO TABLET */
+    .aggNvT {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: end;
+    }
+
+    .campo:first-child {
+        width: 100%;
+        min-width: 100%;
+        flex: none;
+    }
+
+    .campo:nth-child(2),
+    .campo:nth-child(3) {
+        flex: 1;
+        min-width: 0;
+    }
+
+    #BtnTarea {
+        width: 100%;
+    }
+
+    /* FILTROS TABLET */
+    .FltrTarea {
+        display: block;
+    }
+
+    .filtros {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        margin-top: 10px;
+        margin-bottom: 14px;
+    }
+
+    .filtros button {
+        flex: 1;
+        min-width: 0;
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .contadores {
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+    }
+
+    .contador {
+        flex: 1;
+        min-width: 0;
+        height: 90px;
+        padding-top: 12px;
+    }
+
+    .contador p {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .contador strong {
+        font-size: 30px;
+    }
+
+    /* LISTA */
+    #listaTareas {
+        gap: 10px;
+    }
+
+    .contenido > p:last-child {
+        text-align: center;
+        font-size: 13px;
+        padding: 6px 0 2px;
+    }
+}
+.contenido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.filtros button i {
+    margin-right: 6px;
+}
+
+#BtnTarea {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* MOVIL */
+@media (max-width: 767px) {
+    body.Todo {
+        flex-direction: column;
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .contenedor1 {
+        display: none;
+    }
+
+    .contenido {
+        width: 100%;
+    }
+
+    .contenido h3 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .contenido > p:first-of-type {
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .aggNvT {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .campo,
+    .campo:first-child,
+    .campo:nth-child(2),
+    .campo:nth-child(3) {
+        width: 100%;
+        min-width: 100%;
+        flex: none;
+    }
+
+    .FltrTarea {
+        display: block;
+    }
+
+    .filtros {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 12px;
+    }
+
+    .filtros button,
+    #BtnTarea {
+        width: 100%;
+    }
+
+    .contadores {
+        display: flex;
+        gap: 8px;
+    }
+
+    .contador {
+        flex: 1;
+        min-width: 0;
+        height: 85px;
+    }
+
+    .contador strong {
+        font-size: 22px;
+    }
+}
