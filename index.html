@@ -32,21 +32,29 @@
 
     </fieldset>
 
-        <div class="contenido">
+    <div class="contenido">
         <h3>Mis Tareas del Dia</h3>
         <p>Agrega, Organiza y completa tus tareas diarias</p>
         <fieldset>
             <h4>Agregar nueva tarea</h4>
             <div class="aggNvT">
-                <p>Tarea</p><div class="campo"><input id="inputTarea" type="text" placeholder="¿Qué necesitas hacer?"></div>
-                <p>Prioridad</p><div class="campo">
+                <div class="campo">
+                    <label>Tarea</label>
+                    <input id="inputTarea" type="text" placeholder="¿Qué necesitas hacer?">
+                </div>
+                <div class="campo">
+                    <label>Prioridad</label>
                     <select id="inputPrioridad">
                         <option>Alta</option>
-                        <option>Media</option>
-                        <option selected>Baja</option>
-                    </select></div>
-                <p>Fecha</p><div class="campo"><input id="inputfecha" type="date"></div>
-                <div class="campo"><button id="BtnTarea">+ Agregar Tarea</button></div>
+                        <option selected>Media</option>
+                        <option>Baja</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Fecha</label>
+                    <input id="inputfecha" type="date">
+                </div>
+                <button id="BtnTarea">+ Agregar Tarea</button>
             </div>
         </fieldset>
 
@@ -59,9 +67,15 @@
                     <button id="BtnCompletas"><i class="fa-solid fa-clipboard-check"></i> Completadas</button>
                 </div>
                 <div class="contadores">
-                    <div class="contador"><p>Total</p><strong id="total">0</strong></div>
-                    <div class="contador"><p>Pendientes</p><strong id="pendientes">0</strong></div>
-                    <div class="contador"><p>Completas</p><strong id="completadas">0</strong></div>
+                    <div class="contador">
+                        <p>Total</p><strong id="total">0</strong>
+                    </div>
+                    <div class="contador">
+                        <p>Pendientes</p><strong id="pendientes">0</strong>
+                    </div>
+                    <div class="contador">
+                        <p>Completas</p><strong id="completadas">0</strong>
+                    </div>
                 </div>
             </div>
         </fieldset>
