@@ -229,3 +229,5 @@ function inicializar() {
 }
 
 document.addEventListener("DOMContentLoaded", inicializar);
+
+// reincertacion de js
